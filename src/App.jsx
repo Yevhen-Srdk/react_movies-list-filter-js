@@ -5,11 +5,9 @@ import { useState } from 'react';
 import { MoviesList } from './components/MoviesList';
 import moviesFromServer from './api/movies.json';
 
-function isContainsQuery(str, query) {
-  return str.toLowerCase().includes(query.trim().toLowerCase());
-}
-
 function filterMovies(movies, query) {
+  const preparedQuery = query.trim().toLowerCase();
+
   if (!movies) {
     return movies;
   }
@@ -18,8 +16,8 @@ function filterMovies(movies, query) {
     console.log(movie);
 
     return (
-      isContainsQuery(movie.title, query) ||
-      isContainsQuery(movie.description, query)
+      movie.title.includes(preparedQuery) ||
+      movie.description.includes(preparedQuery)
     );
   });
 }
